@@ -56,7 +56,12 @@ public:
     }
     fvec_t *output = new_fvec(buffer->length);
     aubio_fft_do_complex(aubio_fft, buffer, output);
-    return output->data[0];
+    val result = val::array();
+    for (int i = 0; i < buffer->length; i += 1) {
+      result.set(i, output->data[i]);
+    }
+    del_cvec(output);
+    return result;
   }
 
 private:
