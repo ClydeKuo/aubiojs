@@ -51,7 +51,7 @@ public:
     return output;
   }
   val Complex(val input) {
-    cvec_t *output = new_cvec(buffer->length);
+    fvec_t *output = new_fvec(buffer->length);
     for (int i = 0; i < buffer->length; i += 1) {
       buffer->data[i] = input[i].as<float>();
     }
