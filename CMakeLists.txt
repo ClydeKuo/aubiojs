@@ -35,10 +35,8 @@ set(source_files
 add_definitions(-DHAVE_CONFIG_H)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
   -DEMSCRIPTEN_HAS_UNBOUND_TYPE_NAMES=0 \
-  -s WASM=0 \
   -fno-rtti \
   -fno-exceptions -O3 \
-  --memory-init-file 0 \
   -s MODULARIZE=1 \
   -s EXPORT_NAME=Aubio \
   -s NO_FILESYSTEM=1 \
