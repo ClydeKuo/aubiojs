@@ -14,14 +14,6 @@ public:
     del_aubio_fft(aubio_fft);
     del_fvec(buffer);
   }
-  val Complex(val input) {
-    cvec_t *output = new_cvec(buffer->length);
-    for (int i = 0; i < buffer->length; i += 1) {
-      buffer->data[i] = input[i].as<float>();
-    }
-    aubio_fft_do_complex(aubio_fft, buffer, output);
-    return output;
-  }
   val Forward(val input) {
     cvec_t *output = new_cvec(buffer->length);
     for (int i = 0; i < buffer->length; i += 1) {
@@ -56,6 +48,13 @@ public:
     }
     del_fvec(result);
     del_cvec(spectrum);
+    return output;
+  }
+  val Complex(val input) {
+    for (int i = 0; i < buffer->length; i += 1) {
+      buffer->data[i] = input[i].as<float>();
+    }
+    aubio_fft_do_complex(aubio_fft, buffer, output);
     return output;
   }
 
