@@ -13,7 +13,6 @@ public:
   ~FFT() {
     del_aubio_fft(aubio_fft);
     del_fvec(buffer);
-    del_fvec(output);
   }
   val Forward(val input) {
     cvec_t *output = new_cvec(buffer->length);
@@ -55,6 +54,7 @@ public:
     for (int i = 0; i < buffer->length; i += 1) {
       buffer->data[i] = input[i].as<float>();
     }
+    fvec_t *output = new_fvec(buffer->length);
     aubio_fft_do_complex(aubio_fft, buffer, output);
     return output->data[0];
   }
@@ -62,7 +62,6 @@ public:
 private:
   aubio_fft_t *aubio_fft;
   fvec_t *buffer;
-  fvec_t *output = new_fvec(1);
 };
 
 EMSCRIPTEN_BINDINGS(FFT) {
