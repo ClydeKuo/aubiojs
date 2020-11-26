@@ -56,7 +56,7 @@ public:
       buffer->data[i] = input[i].as<float>();
     }
     aubio_fft_do_complex(aubio_fft, buffer, output);
-    return output;
+    return output->data[0];
   }
 
 private:
