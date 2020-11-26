@@ -13,7 +13,6 @@ public:
   ~FFT() {
     del_aubio_fft(aubio_fft);
     del_fvec(buffer);
-    del_fvec(output);
   }
   val Forward(val input) {
     cvec_t *output = new_cvec(buffer->length);
@@ -52,6 +51,7 @@ public:
     return output;
   }
   val Complex(val input) {
+    cvec_t *output = new_cvec(buffer->length);
     for (int i = 0; i < buffer->length; i += 1) {
       buffer->data[i] = input[i].as<float>();
     }
