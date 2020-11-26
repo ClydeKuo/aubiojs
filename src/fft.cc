@@ -14,7 +14,14 @@ public:
     del_aubio_fft(aubio_fft);
     del_fvec(buffer);
   }
-
+  val Complex(val input) {
+    cvec_t *output = new_cvec(buffer->length);
+    for (int i = 0; i < buffer->length; i += 1) {
+      buffer->data[i] = input[i].as<float>();
+    }
+    aubio_fft_do_complex(aubio_fft, buffer, output);
+    return output;
+  }
   val Forward(val input) {
     cvec_t *output = new_cvec(buffer->length);
     for (int i = 0; i < buffer->length; i += 1) {
@@ -33,7 +40,6 @@ public:
     del_cvec(output);
     return spectrum;
   }
-
   val Inverse(val input) {
     cvec_t *spectrum = new_cvec(buffer->length);
     val norm = input["norm"];
@@ -62,5 +68,6 @@ EMSCRIPTEN_BINDINGS(FFT) {
   class_<FFT>("FFT")
     .constructor<uint_t>()
     .function("forward", &FFT::Forward)
-    .function("inverse", &FFT::Inverse);
+    .function("inverse", &FFT::Inverse)
+    .function("complex", &FFT::Complex);
 }
