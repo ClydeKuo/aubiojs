@@ -13,6 +13,7 @@ public:
   ~FFT() {
     del_aubio_fft(aubio_fft);
     del_fvec(buffer);
+    del_fvec(output);
   }
   val Forward(val input) {
     cvec_t *output = new_cvec(buffer->length);
