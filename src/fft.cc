@@ -60,7 +60,7 @@ public:
     for (int i = 0; i < buffer->length; i += 1) {
       result.set(i, output->data[i]);
     }
-    del_cvec(output);
+    del_fvec(output);
     return result;
   }
 
